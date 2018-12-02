@@ -1,10 +1,10 @@
-// require('dotenv').config();
+require('dotenv').config();
 
 var fs = require("fs");
 var keys = require("./keys.js");
 var axios = require("axios");
 var moment = require("moment");
-// var Spotify = require("node-spotify-api");
+var Spotify = require("node-spotify-api");
 
 
 var cmd = process.argv[2];
@@ -18,7 +18,7 @@ switch (cmd) {
         break;
 
     case "spotify-this-song":
-        Spotify();
+        songChoice();
         break;
 
     case "movie-this":
@@ -26,7 +26,7 @@ switch (cmd) {
         break;
 
     case "do-what-it-says":
-
+        doWhat();
         break;
 
     default:
@@ -73,7 +73,7 @@ function bandsinTown() {
 // Spotify Song
 //=========================================================
 
-function Spotify() {
+function songChoice() {
 
     var spotify = new Spotify(keys.spotify);
     var songTitle = process.argv.slice(3).join(" ");
@@ -82,7 +82,7 @@ function Spotify() {
         type: 'track',
         query: songTitle
     }).then(function (response) {
-        console.log(response);
+        console.log(response.tracks);
     })
         .catch(function (err) {
             console.log(err);
@@ -105,17 +105,17 @@ function movieSearch() {
     var queryURL = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=trilogy";
 
     axios.get(queryURL).then(function (response) {
-       // console.log(response.data);
+        // console.log(response.data);
         var data = response.data;
-       console.log("-------------------------------")
-       console.log("Title: " + data.Title + "\nYear: " + data.Year
-                   + "\nIMDB Rating: " + data.Ratings[0].Value 
-                   + "\nRotten Tomatoes Rating: " + data.Ratings[1].Value
-                   + "\nCountry: " + data.Country
-                   + "\nLanguage: " + data.Language
-                   + "\nPlot Summary: " + data.Plot
-                   + "\nActors: " + data.Actors
-       )
+        console.log("-------------------------------")
+        console.log("Title: " + data.Title + "\nYear: " + data.Year
+            + "\nIMDB Rating: " + data.Ratings[0].Value
+            + "\nRotten Tomatoes Rating: " + data.Ratings[1].Value
+            + "\nFilmed in: " + data.Country
+            + "\nLanguage: " + data.Language
+            + "\nPlot Summary: " + data.Plot
+            + "\nActors: " + data.Actors
+        )
     })
 
 
@@ -124,3 +124,16 @@ function movieSearch() {
 
 // Do what it says
 //==========================================================
+
+function doWhat() {
+
+    fs.readFile("random.txt", "UTF8", function (err, data) {
+        if (err) {
+            return console.log(err);
+        }
+        else {
+            console.log(data);
+        }
+    })
+
+}
