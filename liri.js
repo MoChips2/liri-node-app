@@ -73,26 +73,37 @@ function bandsinTown() {
 // Spotify Song
 //=========================================================
 
-function songChoice() {
+function songChoice(songTitle) {
 
     var spotify = new Spotify(keys.spotify);
-    var songTitle = process.argv.slice(3).join(" ");
+    songTitle = process.argv.slice(3).join(" ");
+    var userChoice = process.argv.slice(3).join(" ");
+    
+    if (!songTitle) {
+     songTitle = "The Sign";
+    }
+   
+    else if(songTitle === userChoice);
+        spotify.search({
+            type: 'track',
+            query: songTitle,
+            limit: 10
+        }).then(function (response) {
 
-    spotify.search({
-        type: 'track',
-        query: songTitle
-    }).then(function (response) {
-        console.log(response.tracks);
-    })
-        .catch(function (err) {
-            console.log(err);
-        });
+            // console.log(JSON.stringify(response, null, 2));
 
+            var data = response.tracks;
 
-
-
-
-
+            var displaySong = "Artist: " + data.items[0].album.artists[0].name
+                              + "\nSong Title: " + data.items[0].name
+                              + "\nSong Preview: " + data.items[0].preview_url
+                              + "\nAlbum: " + data.items[0].album.name
+            console.log(displaySong);
+            
+        })
+            .catch(function (err) {
+                console.log(err);
+            });
 }
 
 
@@ -125,14 +136,18 @@ function movieSearch() {
 // Do what it says
 //==========================================================
 
+var rndmSong;
+
 function doWhat() {
 
-    fs.readFile("random.txt", "UTF8", function (err, data) {
+    fs.readFile("random.txt", "utf8", function (err, data) {
         if (err) {
             return console.log(err);
         }
         else {
-            console.log(data);
+            var textArray = data.split(",");
+                rndmSong = textArray[1];
+            songChoice(rndmSong);
         }
     })
 
