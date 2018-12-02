@@ -97,7 +97,8 @@ function songChoice(songTitle) {
         // console.log(JSON.stringify(response, null, 2));
 
         var data = response.tracks;
-
+        console.log("-----------------------------------------")
+        
         var displaySong = "Artist: " + data.items[0].album.artists[0].name
             + "\nSong Title: " + data.items[0].name
             + "\nSong Preview: " + data.items[0].preview_url
@@ -165,6 +166,7 @@ function doWhat() {
             var textArray = data.split(",");
              songCMD = textArray[0];
              rndmSong = textArray[1];
+             console.log("------------------------------")
              console.log(rndmSong);
             /* instead of logging rndmSong, this is where I would somehow pass this value through songChoice function,
              which would replace songTitle, search for "I Want It That Way" */
