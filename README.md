@@ -19,7 +19,7 @@ Once the category has been chosen, then the user's second input will be their ch
 <img src= "./liri-examples/concert-this.PNG" alt="concert-search" width="600" height="400"/>
      
 The various search categories are demonstrated in the video linked below:
-https://drive.google.com/drive/u/0/folders/1Kt8sKYIJ_YAR2eo0P3scq3-d0NzJJVZy
+https://drive.google.com/file/d/1AAv14n66YGfzcg-7gkPR8TTE_NPHrboH/view?usp=sharing
       
 
 
